@@ -18,6 +18,8 @@ def register_user(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         type_user = request.POST.get('user_type')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         print("hello")
         print(user_type)
         user = User.objects.create_user(
@@ -28,9 +30,9 @@ def register_user(request):
 
         usert = None
         if type_user == 'student':
-            usert = user_type(user=user,is_student=True)
+            usert = user_type(user=user,is_student=True,first_name=first_name, last_name=last_name)
         elif type_user == 'teacher':
-            usert = user_type(user=user,is_teach=True)
+            usert = user_type(user=user,is_teach=True,first_name=first_name, last_name=last_name)
         usert.save()
         #Successfully registered. Redirect to homepage
         # return HttpResponse("registered")

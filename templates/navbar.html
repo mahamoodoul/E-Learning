@@ -26,7 +26,7 @@
       </li>
      {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'App_Login:logout' %}">Logout({{user.email}})</a>
+        <a class="nav-link" href="{% url 'App_Login:logout' %}">Logout({{user.user_info.first_name}} {{user.user_info.last_name}})</a>
       </li>
         <li class="nav-item">
           <a class="nav-link" href="">Write Articale</a>

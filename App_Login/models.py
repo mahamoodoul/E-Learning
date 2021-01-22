@@ -55,9 +55,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class user_type(models.Model):
+    first_name = models.CharField(max_length=254, null=True, blank=True)
+    last_name = models.CharField(max_length=254, null=True, blank=True)
     is_teach = models.BooleanField(default=False)
     is_student = models.BooleanField(default=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='user_info')
     def __str__(self):
         if self.is_student == True:
             return User.get_email(self.user) + " - is_student"
