@@ -8,7 +8,7 @@
     <img src="/media/{{article.articles_image}}" alt="{{articles.articles_title}}" title="{{articles.articles_title}}" width="100%">
   </div>
   <div class="col-sm-8">
-    <p>{{article.articles_content|range_filter|linebreaks}} <a href="">Read More</a></p>
+    <p>{{article.articles_content|range_filter|linebreaks}} <a href="{% url 'App_Articles:article_details' slug=article.slug %}">Read More</a></p>
     <h6>Posted By: <a href="#">@{{article.author}}</a></h6>
   </div>
 </div>

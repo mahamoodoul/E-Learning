@@ -7,6 +7,7 @@ app_name = 'App_Articles'
 
 urlpatterns = [
     path('create_articles',views.CreateArticles.as_view(), name='create_articles'),
+     path(r'^?P<slug>[\w-]', views.articale_details, name='article_details'),
 ]
 
 

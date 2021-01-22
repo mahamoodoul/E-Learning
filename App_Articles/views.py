@@ -25,3 +25,18 @@ class CreateArticles(LoginRequiredMixin, CreateView):
             return redirect('student_home') #Go to student home
         elif user_type_obj.is_teach:
             return redirect('teacher_home')
+
+
+@login_required
+def articale_details(request, slug):
+    article = Article.objects.get(slug=slug)
+    comment_form = CommentForm()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.article = article
+            comment.save()
+            return HttpResponseRedirect(reverse('App_Articles:article_details', kwargs={'slug':slug}))
+    return render(request, 'App_Articles/article_details.html', context={'article':article, 'comment_form':comment_form })
