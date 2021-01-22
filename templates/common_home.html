@@ -1,0 +1,16 @@
+{% load custom_filters %}
+{% for article in articles %}
+<h3>{{article.articles_title}}</h3>
+<h6><i>{{article.publish_date}}</i></h6>
+<h6><i>{{article.articles_category}}</i></h6>
+<div class="row">
+  <div class="col-sm-4">
+    <img src="/media/{{article.articles_image}}" alt="{{articles.articles_title}}" title="{{articles.articles_title}}" width="100%">
+  </div>
+  <div class="col-sm-8">
+    <p>{{article.articles_content|range_filter|linebreaks}} <a href="">Read More</a></p>
+    <h6>Posted By: <a href="#">@{{article.author}}</a></h6>
+  </div>
+</div>
+<hr>
+{% endfor %}
