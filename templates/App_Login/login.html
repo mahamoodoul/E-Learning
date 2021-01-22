@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title_block %} Login here {% endblock %}
+{% block body_block %}
+    <section>
+        <div style="margin-top:100px" class="container">
+          <div class="row">
+            <div class="col-md-6 mx-auto">
+              <div class="card">
+                <div class="card-header text-black">
+                  <h2>Login</h2>
+                </div>
+                <div  class="card-body">
+                  <form action="{% url 'App_Login:login_user' %}" method="POST">
+                      <div class="form-row">
+                        <div class="form-group ">
+                          <label for="inputEmail4">Email</label>
+                          <input name="email" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                          <label for="inputPassword4">Password</label>
+                          <input name="password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                        </div>
+                      </div>
+                       {% csrf_token %}
+                      <button style="width=100%;" type="submit" class="btn btn-primary">Sign in</button>
+                  </form>
+                </div>
+                <a class="btn btn-danger" href="{% url 'App_Login:register_user' %}">Regiter here</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+{% endblock %}
