@@ -9,7 +9,7 @@ def student_home(request):
     return HttpResponseRedirect(reverse('App_Student:student_home'))
 
 def teacher_home(request):
-    return HttpResponseRedirect(reverse('App_Teacher:teacher_home'))
+    return HttpResponseRedirect(reverse('App_Quiz:teacher_home'))
 
 class article_list(ListView):
     context_object_name = 'articles'

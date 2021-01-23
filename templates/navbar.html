@@ -29,21 +29,25 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'App_Login:logout' %}">Logout({{user.user_info.first_name}} {{user.user_info.last_name}})</a>
       </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'App_Articles:create_articles' %}">Write Articale</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'App_Articles:ask_question' %}">Ask a Question</a>
-        </li>
+
               {% if user.user_info.is_teach %}
               <li class="nav-item">
                 <a class="nav-link" href="">Create Quiz</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Quiz list</a>
               </li>
               {% elif user.user_info.is_student %}
               <li class="nav-item">
                 <a class="nav-link" href="">Attempt Quiz</a>
               </li>
               {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'App_Articles:create_articles' %}">Write Articale</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'App_Articles:ask_question' %}">Ask a Question</a>
+              </li>
       {% else %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'App_Login:login_user' %}">Login</a>

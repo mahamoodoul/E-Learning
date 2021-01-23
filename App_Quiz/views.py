@@ -2,6 +2,9 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import login, logout,authenticate
 from App_Login.models import User, user_type
 from App_Articles.models import Article
+from django.contrib.auth.decorators import login_required
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, View, TemplateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 def teacher_home(request):

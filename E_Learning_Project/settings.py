@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'App_Login',
+    'App_Quiz',
     'App_Student',
-    'App_Teacher',
     'App_Articles',
 ]
 

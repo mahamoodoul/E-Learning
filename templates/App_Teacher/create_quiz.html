@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} Create A Quiz {% endblock %}
+{% block body_block %}
+<h2>Create your Quiz</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  {{ form|crispy }}
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success btn-sm">Make Quiz</button>
+</form>
+{% endblock %}
