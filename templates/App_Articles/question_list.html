@@ -11,7 +11,7 @@
           <img src="/media/{{article.articles_image}}" alt="{{articles.articles_title}}" title="{{articles.articles_title}}" width="100%">
         </div> -->
         <div class="col-sm-8">
-          <p>{{question.question_content|linebreaks}} <a href="">Answer The Question</a></p>
+          <p>{{question.question_content|linebreaks}} <a href="{% url 'App_Articles:answer_question' slug=question.slug %}">Answer The Question</a></p>
           <h6>Posted By: <a href="#">@{{question.question_poster}}</a></h6>
         </div>
       </div>

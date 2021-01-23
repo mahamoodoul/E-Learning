@@ -4,7 +4,7 @@ from App_Articles.models import Article, Category, Comment, Question, AnswerQues
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from App_Articles.forms import CommentForm
+from App_Articles.forms import CommentForm, AnswerForm
 from App_Login.models import User, user_type
 import uuid
 # Create your views here.
@@ -63,3 +63,18 @@ class question_list(ListView):
     context_object_name = 'questions'
     model = Question
     template_name = 'App_Articles/question_list.html'
+
+
+@login_required
+def answer_question(request, slug):
+    question = Question.objects.get(slug=slug)
+    ans_form = AnswerForm()
+    if request.method == 'POST':
+        ans_form = AnswerForm(request.POST)
+        if ans_form.is_valid():
+            ans = ans_form.save(commit=False)
+            ans.user = request.user
+            ans.question_answer = question
+            ans.save()
+            return HttpResponseRedirect(reverse('App_Articles:answer_question', kwargs={'slug':slug}))
+    return render(request, 'App_Articles/answer_question.html', context={'question':question, 'ans_form':ans_form })
