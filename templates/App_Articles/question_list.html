@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} All Questions {% endblock %}
+{% block body_block %}
+
+      {% for question in questions %}
+      <h3>{{question.question_title}}</h3>
+      <h6><i>{{question.publish_date}}</i></h6>
+      <div class="row">
+        <!-- <div class="col-sm-4">
+          <img src="/media/{{article.articles_image}}" alt="{{articles.articles_title}}" title="{{articles.articles_title}}" width="100%">
+        </div> -->
+        <div class="col-sm-8">
+          <p>{{question.question_content|linebreaks}} <a href="">Answer The Question</a></p>
+          <h6>Posted By: <a href="#">@{{question.question_poster}}</a></h6>
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+
+{% endblock %}

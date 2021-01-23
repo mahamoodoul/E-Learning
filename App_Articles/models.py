@@ -36,3 +36,31 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+
+class Question(models.Model):
+    question_poster = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_asker')
+    question_title = models.CharField(max_length=264, blank=True , verbose_name="Put a Title")
+    question_content = models.TextField(verbose_name="Write your Question Here!!")
+    slug = models.SlugField(max_length=264, blank=True , unique=True)
+    publish_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ('-publish_date',)
+
+    def __str__(self):
+        return self.question_content
+
+
+class AnswerQuestion(models.Model):
+    question_answer = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_ans')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_ans')
+    answer = models.TextField()
+    answer_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-answer_date',)
+
+    def __str__(self):
+        return self.answer

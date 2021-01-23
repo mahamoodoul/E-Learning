@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse, reverse, redirect
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, View, TemplateView, DeleteView
-from App_Articles.models import Article, Category, Comment
+from App_Articles.models import Article, Category, Comment, Question, AnswerQuestion
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -40,3 +40,26 @@ def articale_details(request, slug):
             comment.save()
             return HttpResponseRedirect(reverse('App_Articles:article_details', kwargs={'slug':slug}))
     return render(request, 'App_Articles/article_details.html', context={'article':article, 'comment_form':comment_form })
+
+
+class ask_question(LoginRequiredMixin, CreateView):
+    model = Question
+    template_name = 'App_Articles/ask_question.html'
+    fields = ('question_title','question_content')
+    def form_valid(self, form):
+        qs_obj = form.save(commit=False)
+        qs_obj.question_poster = self.request.user
+        title = qs_obj.question_title
+        qs_obj.slug = title.replace(" ", "-") + "-" + str(uuid.uuid4())
+        qs_obj.save()
+        user_type_obj = user_type.objects.get(user=self.request.user)
+        if user_type_obj.is_student:
+            return redirect('student_home')
+        elif user_type_obj.is_teach:
+            return redirect('teacher_home')
+
+
+class question_list(ListView):
+    context_object_name = 'questions'
+    model = Question
+    template_name = 'App_Articles/question_list.html'
