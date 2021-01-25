@@ -35,7 +35,7 @@
                 <a class="nav-link" href="{% url 'App_Quiz:create_quiz' %}">Create Quiz</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Quiz list</a>
+                <a class="nav-link" href="{% url 'App_Quiz:quiz_list' %}">Quiz list</a>
               </li>
               {% elif user.user_info.is_student %}
               <li class="nav-item">

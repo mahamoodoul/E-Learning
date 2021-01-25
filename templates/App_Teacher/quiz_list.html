@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} Quiz List {% endblock %}
+
+{% block body_block %}
+
+  <div class="margin-top:100px;">
+      {% for quiz_name in all_quiz_name %}
+      <a href="{% url 'App_Quiz:total_questions' quiz_name=quiz_name.quiz_name quiz_id=quiz_name.pk %}"><h3>{{quiz_name.quiz_name}}</h3></a>
+      {% endfor %}
+
+  </div>
+  <hr>
+  <div class="">
+    <form method="POST" enctype="multipart/form-data">
+      {{ form|crispy }}
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-sm">Make Quiz</button>
+    </form>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} Quiz List {% endblock %}
+
+{% block body_block %}
+
+  <div class="margin-top:100px;">
+    {% if quiz_info %}
+    <h1>You Have total {{total_questions}} questions under this Quiz: {{quiz_name}}</h1>
+      {% for question in quiz_info %}
+       <h1>{{question.question}}</h1>
+       <hr>
+        <div class="radio">
+            <label><input type="radio" name="name"  id="option1" value="{{question.option1}}">{{question.option1}} </label>
+        </div>
+        <div class="radio">
+            <label > <input type="radio" name="name"  id="option2" value="{{question.option2}}">{{question.option2}}</label>
+        </div>
+        <div class="radio">
+            <label ><input type="radio" name="name" id="option3" value="{{question.option3}}">{{question.option3}}</label>
+        </div>
+        <div class="radio">
+            <label ><input type="radio" name="name"  id="option4" value="{{question.option4}}">{{question.option4}} </label>
+        </div>
+        <div class="radio">
+            <label > Correct Answer:  {{question.answer}} </label>
+        </div>
+      {% endfor %}
+
+      <hr>
+      {% if quiz_name_obj.is_published  %}
+      <h4>You have published this quiz</h4>
+      {% else %}
+      <a class="btn btn-primary" href="{% url 'App_Quiz:publish_quiz' quiz_id=quiz_id %}">Publish Quiz</a>
+      {% endif %}
+    {% else %}
+      <h4>You did not create any questions  under this Quiz</h4>
+
+    {% endif %}
+
+  </div>
+
+
+{% endblock %}
