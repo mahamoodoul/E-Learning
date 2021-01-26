@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title_block %} Your Quiz List {% endblock %}
+
+{% block body_block %}
+<h2>Your upcomming quiz list</h2>
+  {% for quiz in available_quiz %}
+
+    <h3>{{quiz.quiz_name}}-> <a href=" {% url 'App_Student:quiz_running' quiz_name=quiz.quiz_name quiz_id=quiz.pk %}">Attempt Quiz</a> </h3>
+  {% endfor %}
+
+{% endblock %}

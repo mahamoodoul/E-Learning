@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title_block %} Running Quiz {% endblock %}
+
+{% block body_block %}
+<center><h1>Question {{ questions.end_index }} of  {{count}}</h1></center>
+                <div class="col-lg-8 border border-success p-4 m-4 mx-auto">
+                            {% for i in questions %}
+                                <h1>{{i.question}}</h1>
+                                <form>
+                                      <div class="radio">
+                                        <label><input type="radio" name="name"  id="option1" value="{{i.option1}}">{{i.option1}} </label>
+                                      </div>
+                                      <div class="radio">
+                                        <label > <input type="radio" name="name"  id="option2" value="{{i.option2}}">{{i.option2}}</label>
+                                      </div>
+                                      <div class="radio">
+                                        <label ><input type="radio" name="name" id="option3" value="{{i.option3}}">{{i.option3}}</label>
+                                      </div>
+                                      <div class="radio">
+                                        <label ><input type="radio" name="name"  id="option4" value="{{i.option4}}">{{i.option4}} </label>
+                                    </div>
+                                      <input id="question_id" type="hidden" name="" value="{{i.pk}}">
+                                </form>
+                            {%endfor%}
+
+                            <div class="form-group">
+                                <button class="btn  btn-success" id="save_ans">Submit Answer</button>
+                            </div>
+                            <div class="paginetor">
+                              <div class="form-group">
+                                {%  if questions.has_next %}
+                                <a href="?page={{ questions.next_page_number }}"><button class="btn form-control btn-primary" id="submitAnswer">Next</button></a>
+                              {% else %}
+                               <a href="{% url 'App_Student:result' %}"><button class="btn form-control btn-success" id="submitAnswer">Submit Quiz</button></a>
+                              {% endif %}
+                              </div>
+                            </div>
+                </div>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+
+    window.onload = initall;
+    var  saveBookButton ;
+    function initall() {
+        saveBookButton=document.getElementById('save_ans')
+        saveBookButton.onclick = save_ans;
+    }
+    function save_ans() {
+        var ans = $("input:radio[name=name]:checked").val()
+        var question_id =$("#question_id").val()
+        // GET AJAX request
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'App_Student:save_ans' %}",
+            data: {"ans": ans,"question_id":question_id },
+            success: function (response) {
+              data = response.data
+              console.log(data)
+                // if not valid user, alert the user
+                // if(!response["valid"]){
+                //     alert("invalid response");
+                // }
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        })
+        alert("answer submited go next")
+        // var url = 'http://127.0.0.1:8000/App_Student/save_ans?ans='+ans
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         alert(req.responseText)
+        }
+      };
+      // req.open("GET", url, true);
+      // req.send();
+    }
+
+</script>
+
+
+{% endblock %}
